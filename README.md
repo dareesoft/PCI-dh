@@ -1,98 +1,83 @@
-# Language Segment-Anything
+# Road Pavement Condition Analysis with AI
 
-Language Segment-Anything is an open-source project that combines the power of instance segmentation and text prompts to generate masks for specific objects in images. Built on the recently released Meta model, Segment Anything Model 2, and the GroundingDINO detection model, it's an easy-to-use and effective tool for object detection and image segmentation.
+An advanced deep learning system that combines Language Segment-Anything and specialized pavement distress detection models to automatically assess road conditions according to ASTM D6433 standards.
 
-![person.png](/assets/outputs/person.png)
+![example_detection.png](/assets/outputs/example_detection.png)
 
 ## Features
 
-- Zero-shot text-to-bbox approach for object detection.
-- GroundingDINO detection model integration.
-- SAM 2.1
-- Batch inference support.
-- Easy endpoint deployment using the Lightning AI litserve platform.
-- Customizable text prompts for precise object segmentation.
+### Core AI Models
+- **Language-SAM Integration**: Zero-shot text-to-bbox approach for initial distress detection
+- **Specialized Detection Models**:
+ - Enhanced texture analysis for surface degradation  
+ - Depth estimation for 3D distresses
+ - Temporal analysis for consistent detection
+- **ASTM D6433 Compliance**: Automated calculation of Pavement Condition Index (PCI)
+
+### Technical Capabilities
+- Multi-scale feature extraction
+- Cross-modality attention mechanisms 
+- Uncertainty estimation
+- Batch processing support
+- Real-time analysis capabilities
+- Easy deployment using Lightning AI platform
+
+## System Architecture
+
+### Data Processing Pipeline
+Input Image → Language-SAM Detection → Specialized Analysis → PCI Calculation
+↓                    ↓                        ↓                    ↓
+4K Video     Text-Guided Segmentation     Texture Analysis     Distress Rating
+↓                    ↓                  Depth Analysis           ↓
+GPS Data        Initial Masks              Temporal Analysis    Final Report
+
+### Distress Types Coverage
+Comprehensive detection of 19 ASTM D6433 distress types:
+- Alligator/Fatigue Cracking
+- Bleeding
+- Block Cracking  
+- Rutting
+- Potholes
+- And more...
 
 ## Getting Started
 
 ### Prerequisites
-
 - Python 3.11 or higher
+- CUDA-capable GPU
 
-### Installation
+### Model Architecture
+The system uses a multi-headed neural network architecture:
 
-#### Installing PyTorch Dependencies
+Vision Transformer backbone
+Specialized heads for texture/depth analysis
+Cross-modality attention mechanisms
+Uncertainty estimation
 
-Before installing `lang-sam`, please install PyTorch using the following command:
+### Acknowledgments
+This project builds upon:
 
-```bash
+Language Segment-Anything
+GroundingDINO
+Segment-Anything-2
+LitServe
 
-pip install torch==2.4.1 torchvision==0.19.1 --extra-index-url https://download.pytorch.org/whl/cu124
-
-```
-
-```bash
-
-pip install -U git+https://github.com/luca-medeiros/lang-segment-anything.git
-
-```
-
-Or
-Clone the repository and install the required packages:
-
-```bash
-
-git clone https://github.com/luca-medeiros/lang-segment-anything && cd lang-segment-anything
-pip install -e .
-
-```
-
-#### Docker Installation
-
-Build and run the image.
-
-```bash
-
-git clone https://github.com/luca-medeiros/lang-segment-anything && cd lang-segment-anything
-docker build --tag lang-segment-anything:latest .
-docker run --gpus all -p 8000:8000 lang-segment-anything:latest
-
-```
-
-### Usage
-
-To run the gradio APP:
-
-`python app.py`
-And open `http://0.0.0.0:8000/gradio`
-
-Use as a library:
-
-```python
-from PIL import Image
-from lang_sam import LangSAM
-
-model = LangSAM()
-image_pil = Image.open("./assets/car.jpeg").convert("RGB")
-text_prompt = "wheel."
-results = model.predict([image_pil], [text_prompt])
-```
-
-## Examples
-
-![car.png](/assets/outputs/car.png)
-
-![fruits.png](/assets/outputs/fruits.png)
-
-## Acknowledgments
-
-This project is based on/used the following repositories:
-
-- [GroundingDINO](https://github.com/IDEA-Research/GroundingDINO)
-- [Segment-Anything](https://github.com/facebookresearch/segment-anything-2)
-- [LitServe](https://github.com/Lightning-AI/LitServe/)
-- [Supervision](https://github.com/roboflow/supervision)
-
-## License
-
+### License
 This project is licensed under the Apache 2.0 License
+
+### Citations
+
+@misc{language-sam,
+    title={Language Segment-Anything},
+    author={Luca Medeiros},
+    year={2024},
+    publisher={Github},
+    url={https://github.com/luca-medeiros/lang-segment-anything}
+}
+
+@article{astm-d6433,
+    title={Standard Practice for Roads and Parking Lots Pavement Condition Index Surveys},
+    author={ASTM International},
+    year={2007},
+    journal={ASTM D6433-07}
+}
